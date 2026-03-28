@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROLÊ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #000000;
+      font-family: 'Inter', sans-serif;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* Tech grid background */
+    .tech-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image:
+        linear-gradient(rgba(0,240,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      opacity: 0;
+      animation: float-particle linear infinite;
+    }
+
+    @keyframes float-particle {
+      0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-10vh) translateX(30px); opacity: 0; }
+    }
+
+    /* LED Frame base */
+    .led-frame {
+      position: relative;
+      padding: 4px;
+      border-radius: 16px;
+      background: linear-gradient(45deg, #00f0ff, #ff00ff, #ff0033, #00f0ff);
+      background-size: 300% 300%;
+      animation: led-glow 3s ease infinite;
+      transition: all 0.4s ease;
+    }
+
+    .led-frame:hover {
+      padding: 5px;
+    }
+
+    .led-frame img {
+      display: block;
+      width: 100%;
+      border-radius: 12px;
+      transition: transform 0.5s ease;
+    }
+
+    .led-frame:hover img {
+      transform: scale(1.03);
+    }
+
+    /* Cyan variant */
+    .led-cyan {
+      background: linear-gradient(45deg, #00f0ff, #00b8cc, #00f0ff, #80ffff, #00f0ff);
+      background-size: 300% 300%;
+      animation: led-glow-cyan 3s ease infinite;
+    }
+    .led-cyan:hover {
+      box-shadow: 0 0 40px rgba(0,240,255,0.8), 0 0 80px rgba(0,240,255,0.4);
+    }
+
+    @keyframes led-glow-cyan {
+      0% { background-position: 0% 50%; box-shadow: 0 0 20px rgba(0,240,255,0.5), 0 0 40px rgba(0,240,255,0.2); }
+      25% { background-position: 50% 0%; box-shadow: 0 0 30px rgba(0,240,255,0.7), 0 0 60px rgba(0,240,255,0.3); }
+      50% { background-position: 100% 50%; box-shadow: 0 0 20px rgba(0,240,255,0.5), 0 0 40px rgba(0,240,255,0.2); }
+      75% { background-position: 50% 100%; box-shadow: 0 0 30px rgba(0,240,255,0.7), 0 0 60px rgba(0,240,255,0.3); }
+      100% { background-position: 0% 50%; box-shadow: 0 0 20px rgba(0,240,255,0.5), 0 0 40px rgba(0,240,255,0.2); }
+    }
+
+    /* Magenta variant */
+    .led-magenta {
+      background: linear-gradient(45deg, #ff00ff, #cc00cc, #ff00ff, #ff80ff, #ff00ff);
+      background-size: 300% 300%;
+      animation: led-glow-magenta 3s ease infinite;
+    }
+    .led-magenta:hover {
+      box-shadow: 0 0 40px rgba(255,0,255,0.8), 0 0 80px rgba(255,0,255,0.4);
+    }
+
+    @keyframes led-glow-magenta {
+      0% { background-position: 0% 50%; box-shadow: 0 0 20px rgba(255,0,255,0.5), 0 0 40px rgba(255,0,255,0.2); }
+      25% { background-position: 50% 0%; box-shadow: 0 0 30px rgba(255,0,255,0.7), 0 0 60px rgba(255,0,255,0.3); }
+      50% { background-position: 100% 50%; box-shadow: 0 0 20px rgba(255,0,255,0.5), 0 0 40px rgba(255,0,255,0.2); }
+      75% { background-position: 50% 100%; box-shadow: 0 0 30px rgba(255,0,255,0.7), 0 0 60px rgba(255,0,255,0.3); }
+      100% { background-position: 0% 50%; box-shadow: 0 0 20px rgba(255,0,255,0.5), 0 0 40px rgba(255,0,255,0.2); }
+    }
+
+    /* Red variant */
+    .led-red {
+      background: linear-gradient(45deg, #ff0033, #cc0029, #ff0033, #ff4466, #ff0033);
+      background-size: 300% 300%;
+      animation: led-glow-red 3s ease infinite;
+    }
+    .led-red:hover {
+      box-shadow: 0 0 40px rgba(255,0,51,0.8), 0 0 80px rgba(255,0,51,0.4);
+    }
+
+    @keyframes led-glow-red {
+      0% { background-position: 0% 50%; box-shadow: 0 0 20px rgba(255,0,51,0.5), 0 0 40px rgba(255,0,51,0.2); }
+      25% { background-position: 50% 0%; box-shadow: 0 0 30px rgba(255,0,51,0.7), 0 0 60px rgba(255,0,51,0.3); }
+      50% { background-position: 100% 50%; box-shadow: 0 0 20px rgba(255,0,51,0.5), 0 0 40px rgba(255,0,51,0.2); }
+      75% { background-position: 50% 100%; box-shadow: 0 0 30px rgba(255,0,51,0.7), 0 0 60px rgba(255,0,51,0.3); }
+      100% { background-position: 0% 50%; box-shadow: 0 0 20px rgba(255,0,51,0.5), 0 0 40px rgba(255,0,51,0.2); }
+    }
+
+    /* Fade in on scroll */
+    .fade-section {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(0,0,0,0.6);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tech grid background -->
+  <div class="tech-bg"></div>
+
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="flex items-center justify-center py-5">
+      <span class="text-xl tracking-[0.5em] font-extralight uppercase" style="color: rgba(255,255,255,0.7);">ROLÊ</span>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <main class="relative z-10">
+
+    <!-- Spacer for fixed nav -->
+    <div class="h-24"></div>
+
+    <!-- Foto 01 - Cyan -->
+    <section class="fade-section min-h-screen flex items-center justify-center px-4 py-16">
+      <div class="led-frame led-cyan max-w-lg w-full">
+        <img src="foto-01.jpg" alt="Rolê foto 1">
+      </div>
+    </section>
+
+    <!-- Foto 02 - Magenta -->
+    <section class="fade-section min-h-screen flex items-center justify-center px-4 py-16">
+      <div class="led-frame led-magenta max-w-lg w-full">
+        <img src="foto-02.jpg" alt="Rolê foto 2">
+      </div>
+    </section>
+
+    <!-- Foto 03 - Vermelho -->
+    <section class="fade-section min-h-screen flex items-center justify-center px-4 py-16">
+      <div class="led-frame led-red max-w-lg w-full">
+        <img src="foto-03.jpg" alt="Rolê foto 3">
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 text-center">
+      <p class="text-xs tracking-[0.3em] font-extralight" style="color: rgba(255,255,255,0.3);">denderson.com</p>
+    </footer>
+
+  </main>
+
+  <script>
+    // Generate floating particles
+    const particlesContainer = document.getElementById('particles');
+    const colors = ['#00f0ff', '#ff00ff', '#ff0033'];
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      p.style.animationDuration = (8 + Math.random() * 12) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      p.style.width = (1 + Math.random() * 2) + 'px';
+      p.style.height = p.style.width;
+      particlesContainer.appendChild(p);
+    }
+
+    // Scroll fade-in observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
